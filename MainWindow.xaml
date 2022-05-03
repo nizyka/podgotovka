@@ -1,0 +1,54 @@
+﻿<Window x:Class="LibraryIs2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraryIs2"
+        xmlns:converters="clr-namespace:LibraryIs2.resources.converters"
+        mc:Ignorable="d"
+        Title="Каталог книг" Height="450" Width="800">
+    <Window.Resources>
+        <converters:AuthorListToStringConverter x:Key="authorConv"></converters:AuthorListToStringConverter>
+        <converters:ImagePathconverter x:Key="imageConv"></converters:ImagePathconverter>
+    </Window.Resources>
+    <Grid>
+        <Image Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Source="resources/images/1.jpg" Margin="10"></Image>
+        <TextBlock HorizontalAlignment="Left" FontSize="20" FontWeight="Black" VerticalAlignment="Top" Margin="100,10">Каталог книг</TextBlock>
+        
+        <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="20,60" x:Name="listBoxBooks">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Width="200" Height="400" Orientation="Vertical">
+                        <Image Width="150" Height="150" HorizontalAlignment="Center" Source="{Binding Image,Converter={StaticResource imageConv}}"></Image>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding Name}" FontSize="20"></TextBlock>
+                        <TextBlock Text="{Binding PM05Author, Converter={StaticResource authorConv}}" Foreground="#7d7d7d"></TextBlock>
+                        <Button BorderBrush="Transparent" BorderThickness="0" Background="Black" Foreground="White">Выдать в аренду</Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox Name="searchTextBox" BorderThickness="1" BorderBrush="Black" Width="200" Height="30" HorizontalAlignment="Left" TextChanged="TextBox_TextChanged" VerticalAlignment="Top" Margin="572,10,0,0"></TextBox>
+        <ComboBox Name="sortComboBox" SelectionChanged="SortComboBox_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,15,0,0" Width="114">
+            <ComboBoxItem>по названию(А-Я)</ComboBoxItem>
+            <ComboBoxItem>по названию(Я-А)</ComboBoxItem>
+            <ComboBoxItem>по дате(возрастание)</ComboBoxItem>
+            <ComboBoxItem>по дате(убывание)</ComboBoxItem>
+        </ComboBox>
+        <ComboBox DisplayMemberPath="Name" x:Name="filterComboBox" SelectionChanged="SortComboBox_SelectionChanged"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="391,15,0,0" Width="114">
+           
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" Margin="391,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="Отображено записей:{0} из {1}">
+                    <Binding Path="CurrentCountBook"></Binding>
+                    <Binding Path="AllCountBook"></Binding>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </Grid>
+</Window>

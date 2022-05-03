@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ip49Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PM05Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdAccountType" Type="int" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="PM05AccountType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PM05Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="PM05AuthorShip">
+          <Key>
+            <PropertyRef Name="IdAuthor" />
+            <PropertyRef Name="IdBook" />
+          </Key>
+          <Property Name="IdAuthor" Type="int" Nullable="false" />
+          <Property Name="IdBook" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PM05Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdSection" Type="int" Nullable="false" />
+          <Property Name="IdPublisher" Type="int" Nullable="false" />
+          <Property Name="YearPub" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="Image" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="PM05Extradition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateExtradition" Type="date" Nullable="false" />
+          <Property Name="DateRefund" Type="date" Nullable="false" />
+          <Property Name="Passed" Type="bit" Nullable="false" />
+          <Property Name="IdReader" Type="int" Nullable="false" />
+          <Property Name="IdBook" Type="int" Nullable="false" />
+          <Property Name="IdAccount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PM05Publisher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PM05Reader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="250" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PM05Section">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Account_AccountType">
+          <End Role="PM05AccountType" Type="Self.PM05AccountType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Account" Type="Self.PM05Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05AccountType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Account">
+              <PropertyRef Name="IdAccountType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuthorShip_Author1">
+          <End Role="PM05Author" Type="Self.PM05Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05AuthorShip" Type="Self.PM05AuthorShip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Author">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05AuthorShip">
+              <PropertyRef Name="IdAuthor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuthorShip_Book1">
+          <End Role="PM05Book" Type="Self.PM05Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05AuthorShip" Type="Self.PM05AuthorShip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05AuthorShip">
+              <PropertyRef Name="IdBook" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Publisher">
+          <End Role="PM05Publisher" Type="Self.PM05Publisher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Book" Type="Self.PM05Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Publisher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Book">
+              <PropertyRef Name="IdPublisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Section">
+          <End Role="PM05Section" Type="Self.PM05Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Book" Type="Self.PM05Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Section">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Book">
+              <PropertyRef Name="IdSection" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Extradition_Account">
+          <End Role="PM05Account" Type="Self.PM05Account" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Extradition" Type="Self.PM05Extradition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Extradition">
+              <PropertyRef Name="IdAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Extradition_Book">
+          <End Role="PM05Book" Type="Self.PM05Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Extradition" Type="Self.PM05Extradition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Extradition">
+              <PropertyRef Name="IdBook" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Extradition_Reader">
+          <End Role="PM05Reader" Type="Self.PM05Reader" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Extradition" Type="Self.PM05Extradition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Reader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Extradition">
+              <PropertyRef Name="IdReader" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ip49ModelContainer">
+          <EntitySet Name="PM05Account" EntityType="Self.PM05Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PM05AccountType" EntityType="Self.PM05AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PM05Author" EntityType="Self.PM05Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PM05AuthorShip" EntityType="Self.PM05AuthorShip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PM05Book" EntityType="Self.PM05Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PM05Extradition" EntityType="Self.PM05Extradition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PM05Publisher" EntityType="Self.PM05Publisher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PM05Reader" EntityType="Self.PM05Reader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PM05Section" EntityType="Self.PM05Section" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_AccountType" Association="Self.FK_Account_AccountType">
+            <End Role="PM05AccountType" EntitySet="PM05AccountType" />
+            <End Role="PM05Account" EntitySet="PM05Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthorShip_Author1" Association="Self.FK_AuthorShip_Author1">
+            <End Role="PM05Author" EntitySet="PM05Author" />
+            <End Role="PM05AuthorShip" EntitySet="PM05AuthorShip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthorShip_Book1" Association="Self.FK_AuthorShip_Book1">
+            <End Role="PM05Book" EntitySet="PM05Book" />
+            <End Role="PM05AuthorShip" EntitySet="PM05AuthorShip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Publisher" Association="Self.FK_Book_Publisher">
+            <End Role="PM05Publisher" EntitySet="PM05Publisher" />
+            <End Role="PM05Book" EntitySet="PM05Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Section" Association="Self.FK_Book_Section">
+            <End Role="PM05Section" EntitySet="PM05Section" />
+            <End Role="PM05Book" EntitySet="PM05Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Extradition_Account" Association="Self.FK_Extradition_Account">
+            <End Role="PM05Account" EntitySet="PM05Account" />
+            <End Role="PM05Extradition" EntitySet="PM05Extradition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Extradition_Book" Association="Self.FK_Extradition_Book">
+            <End Role="PM05Book" EntitySet="PM05Book" />
+            <End Role="PM05Extradition" EntitySet="PM05Extradition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Extradition_Reader" Association="Self.FK_Extradition_Reader">
+            <End Role="PM05Reader" EntitySet="PM05Reader" />
+            <End Role="PM05Extradition" EntitySet="PM05Extradition" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ip49Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PM05Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdAccountType" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PM05AccountType" Relationship="Self.FK_Account_AccountType" FromRole="PM05Account" ToRole="PM05AccountType" />
+          <NavigationProperty Name="PM05Extradition" Relationship="Self.FK_Extradition_Account" FromRole="PM05Account" ToRole="PM05Extradition" />
+        </EntityType>
+        <EntityType Name="PM05AccountType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PM05Account" Relationship="Self.FK_Account_AccountType" FromRole="PM05AccountType" ToRole="PM05Account" />
+        </EntityType>
+        <EntityType Name="PM05Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PM05Book" Relationship="Self.PM05AuthorShip" FromRole="PM05Author" ToRole="PM05Book" />
+        </EntityType>
+        <EntityType Name="PM05Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdSection" Type="Int32" Nullable="false" />
+          <Property Name="IdPublisher" Type="Int32" Nullable="false" />
+          <Property Name="YearPub" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PM05Publisher" Relationship="Self.FK_Book_Publisher" FromRole="PM05Book" ToRole="PM05Publisher" />
+          <NavigationProperty Name="PM05Section" Relationship="Self.FK_Book_Section" FromRole="PM05Book" ToRole="PM05Section" />
+          <NavigationProperty Name="PM05Extradition" Relationship="Self.FK_Extradition_Book" FromRole="PM05Book" ToRole="PM05Extradition" />
+          <NavigationProperty Name="PM05Author" Relationship="Self.PM05AuthorShip" FromRole="PM05Book" ToRole="PM05Author" />
+        </EntityType>
+        <EntityType Name="PM05Extradition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateExtradition" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateRefund" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Passed" Type="Boolean" Nullable="false" />
+          <Property Name="IdReader" Type="Int32" Nullable="false" />
+          <Property Name="IdBook" Type="Int32" Nullable="false" />
+          <Property Name="IdAccount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PM05Account" Relationship="Self.FK_Extradition_Account" FromRole="PM05Extradition" ToRole="PM05Account" />
+          <NavigationProperty Name="PM05Book" Relationship="Self.FK_Extradition_Book" FromRole="PM05Extradition" ToRole="PM05Book" />
+          <NavigationProperty Name="PM05Reader" Relationship="Self.FK_Extradition_Reader" FromRole="PM05Extradition" ToRole="PM05Reader" />
+        </EntityType>
+        <EntityType Name="PM05Publisher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PM05Book" Relationship="Self.FK_Book_Publisher" FromRole="PM05Publisher" ToRole="PM05Book" />
+        </EntityType>
+        <EntityType Name="PM05Reader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PM05Extradition" Relationship="Self.FK_Extradition_Reader" FromRole="PM05Reader" ToRole="PM05Extradition" />
+        </EntityType>
+        <EntityType Name="PM05Section">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PM05Book" Relationship="Self.FK_Book_Section" FromRole="PM05Section" ToRole="PM05Book" />
+        </EntityType>
+        <Association Name="FK_Account_AccountType">
+          <End Role="PM05AccountType" Type="Self.PM05AccountType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Account" Type="Self.PM05Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05AccountType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Account">
+              <PropertyRef Name="IdAccountType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Extradition_Account">
+          <End Role="PM05Account" Type="Self.PM05Account" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Extradition" Type="Self.PM05Extradition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Extradition">
+              <PropertyRef Name="IdAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Publisher">
+          <End Role="PM05Publisher" Type="Self.PM05Publisher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Book" Type="Self.PM05Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Publisher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Book">
+              <PropertyRef Name="IdPublisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Section">
+          <End Role="PM05Section" Type="Self.PM05Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Book" Type="Self.PM05Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Section">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Book">
+              <PropertyRef Name="IdSection" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Extradition_Book">
+          <End Role="PM05Book" Type="Self.PM05Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Extradition" Type="Self.PM05Extradition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Extradition">
+              <PropertyRef Name="IdBook" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Extradition_Reader">
+          <End Role="PM05Reader" Type="Self.PM05Reader" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PM05Extradition" Type="Self.PM05Extradition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PM05Reader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PM05Extradition">
+              <PropertyRef Name="IdReader" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PM05AuthorShip">
+          <End Role="PM05Author" Type="Self.PM05Author" Multiplicity="*" />
+          <End Role="PM05Book" Type="Self.PM05Book" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PM05Account" EntityType="Self.PM05Account" />
+          <EntitySet Name="PM05AccountType" EntityType="Self.PM05AccountType" />
+          <EntitySet Name="PM05Author" EntityType="Self.PM05Author" />
+          <EntitySet Name="PM05Book" EntityType="Self.PM05Book" />
+          <EntitySet Name="PM05Extradition" EntityType="Self.PM05Extradition" />
+          <EntitySet Name="PM05Publisher" EntityType="Self.PM05Publisher" />
+          <EntitySet Name="PM05Reader" EntityType="Self.PM05Reader" />
+          <EntitySet Name="PM05Section" EntityType="Self.PM05Section" />
+          <AssociationSet Name="FK_Account_AccountType" Association="Self.FK_Account_AccountType">
+            <End Role="PM05AccountType" EntitySet="PM05AccountType" />
+            <End Role="PM05Account" EntitySet="PM05Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Extradition_Account" Association="Self.FK_Extradition_Account">
+            <End Role="PM05Account" EntitySet="PM05Account" />
+            <End Role="PM05Extradition" EntitySet="PM05Extradition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Publisher" Association="Self.FK_Book_Publisher">
+            <End Role="PM05Publisher" EntitySet="PM05Publisher" />
+            <End Role="PM05Book" EntitySet="PM05Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Section" Association="Self.FK_Book_Section">
+            <End Role="PM05Section" EntitySet="PM05Section" />
+            <End Role="PM05Book" EntitySet="PM05Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Extradition_Book" Association="Self.FK_Extradition_Book">
+            <End Role="PM05Book" EntitySet="PM05Book" />
+            <End Role="PM05Extradition" EntitySet="PM05Extradition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Extradition_Reader" Association="Self.FK_Extradition_Reader">
+            <End Role="PM05Reader" EntitySet="PM05Reader" />
+            <End Role="PM05Extradition" EntitySet="PM05Extradition" />
+          </AssociationSet>
+          <AssociationSet Name="PM05AuthorShip" Association="Self.PM05AuthorShip">
+            <End Role="PM05Author" EntitySet="PM05Author" />
+            <End Role="PM05Book" EntitySet="PM05Book" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ip49ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="PM05Account">
+            <EntityTypeMapping TypeName="ip49Model.PM05Account">
+              <MappingFragment StoreEntitySet="PM05Account">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="IdAccountType" ColumnName="IdAccountType" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PM05AccountType">
+            <EntityTypeMapping TypeName="ip49Model.PM05AccountType">
+              <MappingFragment StoreEntitySet="PM05AccountType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PM05Author">
+            <EntityTypeMapping TypeName="ip49Model.PM05Author">
+              <MappingFragment StoreEntitySet="PM05Author">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PM05Book">
+            <EntityTypeMapping TypeName="ip49Model.PM05Book">
+              <MappingFragment StoreEntitySet="PM05Book">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdSection" ColumnName="IdSection" />
+                <ScalarProperty Name="IdPublisher" ColumnName="IdPublisher" />
+                <ScalarProperty Name="YearPub" ColumnName="YearPub" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PM05Extradition">
+            <EntityTypeMapping TypeName="ip49Model.PM05Extradition">
+              <MappingFragment StoreEntitySet="PM05Extradition">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DateExtradition" ColumnName="DateExtradition" />
+                <ScalarProperty Name="DateRefund" ColumnName="DateRefund" />
+                <ScalarProperty Name="Passed" ColumnName="Passed" />
+                <ScalarProperty Name="IdReader" ColumnName="IdReader" />
+                <ScalarProperty Name="IdBook" ColumnName="IdBook" />
+                <ScalarProperty Name="IdAccount" ColumnName="IdAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PM05Publisher">
+            <EntityTypeMapping TypeName="ip49Model.PM05Publisher">
+              <MappingFragment StoreEntitySet="PM05Publisher">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PM05Reader">
+            <EntityTypeMapping TypeName="ip49Model.PM05Reader">
+              <MappingFragment StoreEntitySet="PM05Reader">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PM05Section">
+            <EntityTypeMapping TypeName="ip49Model.PM05Section">
+              <MappingFragment StoreEntitySet="PM05Section">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PM05AuthorShip" TypeName="ip49Model.PM05AuthorShip" StoreEntitySet="PM05AuthorShip">
+            <EndProperty Name="PM05Author">
+              <ScalarProperty Name="Id" ColumnName="IdAuthor" />
+            </EndProperty>
+            <EndProperty Name="PM05Book">
+              <ScalarProperty Name="Id" ColumnName="IdBook" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

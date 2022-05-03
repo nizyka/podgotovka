@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b69e1fc197e14b7ca104fd4e0e399f74" Name="Diagram1" ZoomLevel="131">
+        <EntityTypeShape EntityType="ip49Model.PM05Account" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ip49Model.PM05AccountType" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ip49Model.PM05Author" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ip49Model.PM05Book" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ip49Model.PM05Extradition" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ip49Model.PM05Publisher" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ip49Model.PM05Reader" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ip49Model.PM05Section" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="ip49Model.FK_Account_AccountType" ManuallyRouted="false" />
+        <AssociationConnector Association="ip49Model.FK_Extradition_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ip49Model.FK_Book_Publisher" ManuallyRouted="false" />
+        <AssociationConnector Association="ip49Model.FK_Book_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="ip49Model.FK_Extradition_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="ip49Model.FK_Extradition_Reader" ManuallyRouted="false" />
+        <AssociationConnector Association="ip49Model.PM05AuthorShip" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
